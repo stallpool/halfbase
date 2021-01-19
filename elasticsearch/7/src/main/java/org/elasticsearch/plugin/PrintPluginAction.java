@@ -15,8 +15,8 @@ import org.elasticsearch.rest.RestRequest;
 import org.elasticsearch.rest.RestStatus;
 
 // ref: https://github.com/elastic/elasticsearch/blob/master/plugins/examples/rest-handler/src/main/java/org/elasticsearch/example/resthandler/ExampleCatAction.java
-// ref: https://github.com/elastic/elasticsearch/blob/feab123ba400b150f3dcd04dd27cf57474b70d5a/server/src/main/java/org/elasticsearch/rest/action/search/RestSearchScrollAction.java
-// ref: https://github.com/elastic/elasticsearch/blob/e3386e155c2e3702e272a11d7d46c3367c17a9cd/server/src/main/java/org/elasticsearch/rest/action/search/RestSearchAction.java
+// ref: https://github.com/elastic/elasticsearch/blob/master/server/src/main/java/org/elasticsearch/rest/action/search/RestSearchScrollAction.java
+// ref: https://github.com/elastic/elasticsearch/blob/master/server/src/main/java/org/elasticsearch/rest/action/search/RestSearchAction.java
 
 public class PrintPluginAction extends BaseRestHandler {
     private static String pluginName = "elasticsearch-plugin-example";
