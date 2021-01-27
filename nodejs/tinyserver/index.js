@@ -18,7 +18,11 @@ const Mime = {
    '.js': 'text/javascript',
    '.svg': 'image/svg+xml',
    '.json': 'application/json',
+   '.png': 'image/png',
+   '.ico': 'image/x-icon',
+   '.jpg': 'image/jpge',
    _default: 'text/plain',
+   _binary: 'application/octet-stream'
    lookup: (filename) => {
       let ext = i_path.extname(filename);
       if (!ext) return Mime._default;
@@ -115,6 +119,7 @@ function serveStatic (res, base, path) {
       }
       buf = i_fs.readFileSync(filename);
       state = i_fs.statSync(filename);
+      if (!state.isFile()) return false;
       Cache.pool[filename] = {
          mtime: state.mtimeMs,
          raw: buf
