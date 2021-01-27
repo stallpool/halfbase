@@ -1,3 +1,5 @@
+// version 1.0.1
+
 const i_fs = require('fs');
 const i_path = require('path');
 const i_url = require('url');
@@ -22,7 +24,7 @@ const Mime = {
    '.ico': 'image/x-icon',
    '.jpg': 'image/jpge',
    _default: 'text/plain',
-   _binary: 'application/octet-stream'
+   _binary: 'application/octet-stream',
    lookup: (filename) => {
       let ext = i_path.extname(filename);
       if (!ext) return Mime._default;
