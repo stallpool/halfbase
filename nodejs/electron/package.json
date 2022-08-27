@@ -5,11 +5,15 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
+    "build": "electron-builder --config build.json --win",
     "test": "echo 'No Test'"
   },
   "author": "Seven Lju",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^20.1.0"
+    "electron": "^20.1.0",
+    "electron-builder": "^23.3.3"
+  },
+  "dependencies": {
   }
 }

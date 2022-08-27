@@ -1,0 +1,18 @@
+{
+   "appId": "test.electronbase",
+   "productName": "ElectronBase",
+   "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+   "extraMetadata": { "name": "ElectronBase" },
+   "buildDependenciesFromSource": true,
+   "protocols": { "name": "electronbase", "schemes": ["electronbase"] },
+   "win": {
+      "target": {
+         "target": "portable",
+         "arch": ["x64", "ia32"]
+      },
+      "publisherName": [ "ElectronBase" ],
+      "files": [
+         "src/**/*"
+      ]
+   }
+}
