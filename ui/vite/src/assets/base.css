@@ -1,0 +1,125 @@
+:root {
+   --primary: #dd344a;
+   --shade0:  #e3e5ea;
+   --shade1:  #999ca2;
+   --shade2:  #7f838b;
+   --shade3:  #595d66;
+   --shade4:  #474b53;
+   --shade5:  #353840;
+   --shade6:  #e3e5ea;
+   --shade7:  #999ca2;
+   --shade8:  #7f838b;
+   --shade9:  #595d66;
+   --shade10: #474b53;
+   --red:     #e44c4d;
+   --teal:    #30d9d4;
+   --blue:    #49b4ff;
+   --yellow:  #efbf6c;
+   /* pro */
+   --pro:     #c49c57;
+   --progradient: #92713c #dbb063;
+   /* performance */
+   --positive3: #30d9d4;
+   --positive2: #79d6d6;
+   --positive1: #9dd5d7;
+   --netural:   #c1d4d8;
+   --negative1: #d5b1b5;
+   --negative2: #dd7a7d;
+   --negative3: #e44c4d;
+   /* kda */
+   --kd-0:    #828790;
+   --kd-1:    #978d87;
+   --kd-2:    #c4a889;
+   --kd-3:    #deaf78;
+   --kd-4:    #e6a85f;
+   --kd-5:    #ff9417;
+   /* champ tier */
+   --tier-1:  #dd344a;
+   --tier-2:  #ff9417;
+   --tier-3:  #49abba;
+   --tier-4:  #3371a4;
+   --tier-5:  #335375;
+}
+
+body {
+   width: 100vw;
+   height: 100vh;
+   margin: 0;
+   overflow: hidden;
+   color: white;
+   background-color: black;
+}
+.body {
+   width: 100%;
+   height: 100%;
+   display: flex;
+}
+.flex-row {
+   flex-direction: row;
+}
+.flex-col {
+   flex-direction: column;
+}
+.flex {
+   flex: 1 1 auto;
+}
+.flex-fix {
+   overflow: hidden;
+}
+.scrollable {
+   overflow-y: auto;
+}
+.logo {
+   width: 150px;
+   margin: 3px;
+}
+
+.van-sidebar-item {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  padding: 20px 12px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+.van-sidebar-item--select:before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 4px;
+  height: 16px;
+  transform: translateY(-50%);
+  content: "";
+  background-color: red;
+}
+.van-sidebar-item__text {
+  word-break: break-all;
+}
+
+.s3mple-actbar .van-icon {
+  margin: 16px 0;
+  font-size: 32px;
+}
+.s3mple-actbar .van-col {
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+}
+.s3mple-actbar .van-col:active {
+  background-color: var(--shade10);
+}
+.s3mple-actbar .van-col span {
+  display: block;
+  height: 36px;
+  margin: -4px 0 4px;
+  padding: 0 5px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.s3mple-info-h { background-color: var(--pro); }
+.s3mple-info-o { background-color: var(--kd-5); }
+.s3mple-info-v { background-color: var(--positive3); }
+.s3mple-info-p { background-color: var(--primary); }

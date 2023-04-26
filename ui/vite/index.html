@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>S3mple 驿站</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+    window.s3mpleBase = '';
+    window.s3mpleMask = {
+       div: null,
+       show: function () {
+          var div = window.s3mpleMask.div;
+          if (!div) {
+             div = document.createElement('div');
+             div.style.position = 'fixed';
+             div.style.width = '100vw';
+             div.style.height = '100vh';
+             div.style.top = '0';
+             div.style.left = '0';
+             div.style.backgroundColor = 'white';
+             div.style.opacity = '0.3';
+             div.style.zIndex = '9999';
+             document.body.appendChild(div);
+             window.s3mpleMask.div = div;
+          }
+          div.style.display = 'block';
+       },
+       hide: function () {
+          var div = window.s3mpleMask.div;
+          if (!div) return;
+          div.style.display = 'none';
+       }
+    };
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
