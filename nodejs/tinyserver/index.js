@@ -70,7 +70,7 @@ function basicRoute (req, res, router) {
    while (path.length > 0) {
       let key = path.shift();
       f = f[key];
-      if (!f) break;
+      if (!f || key === 'constructor') break;
       if (typeof(f) === 'function') {
          return f(req, res, {
             path: path,
