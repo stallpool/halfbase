@@ -1,3 +1,5 @@
+// version 2.0.1
+
 const { EventEmitter } = require('events');
 const { Readable, Writable } = require('stream');
 const i_url = require('url');
@@ -9,7 +11,6 @@ const i_env = {
    server: {
       host: process.env.TINY_HOST || '127.0.0.1',
       port: parseInt(process.env.TINY_PORT || '8080'),
-      enableHttp2: !!process.env.TINY_HTTP2 || false,
       staticDir: process.env.TINY_STATIC_DIR?i_path.resolve(process.env.TINY_STATIC_DIR):null,
       httpsCADir: process.env.TINY_HTTPS_CA_DIR?i_path.resolve(process.env.TINY_HTTPS_CA_DIR):null,
    },
@@ -453,7 +454,11 @@ function createCompatServer(options, requestListener) {
   if (typeof options === 'function') {
     requestListener = options;
     options = {};
+  } else {
+    options = options || {};
   }
+
+  // options.sseListeners = { path: fn }
 
   // Determine if secure based on options
   const isSecure = options.key && options.cert;
@@ -464,27 +469,34 @@ function createCompatServer(options, requestListener) {
   // Add compat flag
   server.isHttp2 = true;
 
-  if (requestListener) {
-    server.on('stream', (stream, headers) => {
-      const req = new Http2IncomingMessage(stream, headers);
-      const res = new Http2ServerResponse(stream);
-
-      // Add reference to each other
-      req.res = res;
-      res.req = req;
-
-      // Call the request listener with compatible req/res objects
-      try {
-        requestListener(req, res);
-      } catch (error) {
-        console.error('Request handler error:', error);
-        if (!res.headersSent) {
-          res.statusCode = 500;
-          res.end('Internal Server Error');
-        }
+  const sseListeners = options.sseListeners ? Object.assign({}, options.sseListeners) : null;
+  server.on('stream', (stream, headers) => {
+    if (sseListeners) {
+      const path = headers[':path'] || '/';
+      const fn = sseListeners[path];
+      if (fn && fn(stream, headers)) {
+        return;
       }
-    });
-  }
+    }
+
+    const req = new Http2IncomingMessage(stream, headers);
+    const res = new Http2ServerResponse(stream);
+
+    // Add reference to each other
+    req.res = res;
+    res.req = req;
+
+    // Call the request listener with compatible req/res objects
+    try {
+      requestListener(req, res);
+    } catch (error) {
+      console.error('Request handler error:', error);
+      if (!res.headersSent) {
+        res.statusCode = 500;
+        res.end('Internal Server Error');
+      }
+    }
+  });
 
   // Keep original listen method but enhance it
   const originalListen = server.listen.bind(server);
@@ -582,7 +594,7 @@ function serveStatic (res, base, path) {
    return true;
 }
 
-function createServer(router) {
+function createServer(router, sseRouters) {
    let server = null;
    router = Object.assign({}, router);
    if (i_env.server.httpsCADir) {
@@ -594,6 +606,9 @@ function createServer(router) {
          cert: i_fs.readFileSync(caCrtFilename),
          allowHTTP1: true,
       };
+      if (sseRouters) {
+        https_config.sseListeners = sseRouters;
+      }
       server = createCompatServer(https_config, (req, res) => {
          basicRoute(req, res, router);
       });
